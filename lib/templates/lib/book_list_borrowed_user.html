@@ -1,0 +1,37 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if 'lib.add_book' in user.get_all_permissions %}
+<h1>Выданные книги</h1>
+
+{% if book_list %}
+<ul>
+
+    {% for b in book_list %}
+    <li><a href="{% url 'book-detail' b.id %}">{{b.title}}</a></li>
+
+    {% endfor %}
+</ul>
+
+{% else %}
+<p>Нет выданных книг.</p>
+{% endif %}
+{% else %}
+<h1>Взятые книги</h1>
+
+{% if book_list %}
+<ul>
+
+    {% for b in book_list %}
+    <li class="{% if is_overdue %}text-danger{% endif %}">
+        <a href="{% url 'book-detail' b.id %}">{{b.title}}</a>({{order_date_str}})
+    </li>
+
+    {% endfor %}
+</ul>
+
+{% else %}
+<p>Нет взятых книг.</p>
+{% endif %}
+{% endif %}
+{% endblock %}

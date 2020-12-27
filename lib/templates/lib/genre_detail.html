@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>{{ genre }} </h1>
+<div style="margin-left:20px;margin-top:20px">
+    <h4>Книги</h4>
+
+    <dl>
+        {% for book in genre.book_set.all %}
+        <!-- {% url 'book-detail' book.pk %} -->
+        <dt><a href="{{book.get_absolute_url}}">{{book}}</a></dt>
+        <dd>{{book.description}}</dd>
+        {% endfor %}
+    </dl>
+
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Библиотека</h1>
+
+<p>Добро пожаловать в <em>библиотеку</em></p>
+
+<h2>Что есть в библиотеке?</h2>
+
+<p>Содержимое:</p>
+<ul>
+    <li><strong>Доступных книг:</strong> {{ num_books }}</li>
+    <li><strong>Доступных авторов:</strong> {{ num_authors }}</li>
+</ul>
+
+<div style="position: relative; width: 600px; height: 800px;">
+    <div style="position: absolute; bottom: 5px;">
+        <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+    </div>
+</div>
+
+{% endblock %}
