@@ -25,6 +25,10 @@ class Author(models.Model):
         """String for representing the Model object"""
         return self.name
 
+    class Meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Авторы'
+
 
 class Genre(models.Model):
     """Model representing genre"""
@@ -37,6 +41,10 @@ class Genre(models.Model):
 
     def get_absolute_url(self):
         return reverse('genre-detail', args=[str(self.id)])
+
+    class Meta:
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанры'
 
 
 class Book(models.Model):
@@ -54,6 +62,8 @@ class Book(models.Model):
 
     class Meta:
         ordering = ['title', 'description']
+        verbose_name = 'Книга'
+        verbose_name_plural = 'Книги'
 
     def get_absolute_url(self):
         """Returns the url to access a particular book instance"""
@@ -81,6 +91,10 @@ class Order_Items(models.Model):
         except:
             return "None"
 
+    class Meta:
+        verbose_name = 'Книги в заказе'
+        verbose_name_plural = 'Книги в заказах'
+
 
 class Order(models.Model):
     """Model representing order"""
@@ -103,6 +117,10 @@ class Order(models.Model):
         if self.due_back and date.today() > self.due_back:
             return True
         return False
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
 
 
 # Comment this out due to the fact that I can create users by default
