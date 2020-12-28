@@ -6,12 +6,19 @@ from django.views import generic
 from datetime import date, timedelta
 from .models import *
 
-# Create your views here.
+paginator = 30
 
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 30
+    paginate_by = paginator
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Book.objects.filter(title__icontains=query)
+        else:
+            return Book.objects.all()
 
 
 class BookDetailView(generic.DetailView):
@@ -34,7 +41,14 @@ class BookDetailView(generic.DetailView):
 
 class AuthorListView(generic.ListView):
     model = Author
-    paginate_by = 30
+    paginate_by = paginator
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Author.objects.filter(name__icontains=query)
+        else:
+            return Author.objects.all()
 
 
 class AuthorDetailView(generic.DetailView):
@@ -47,7 +61,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     """
     model = Order_Items
     template_name = 'lib/book_list_borrowed_user.html'
-    paginate_by = 10
+    paginate_by = paginator
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -78,7 +92,7 @@ class GivenBooksByStaffListView(LoginRequiredMixin, generic.ListView):
     """
     model = Order_Items
     template_name = 'lib/book_list_borrowed_user.html'
-    paginate_by = 30
+    paginate_by = paginator
 
     def get_queryset(self):
         books = Order_Items.objects.filter(order__staff=self.request.user).values(
@@ -89,7 +103,14 @@ class GivenBooksByStaffListView(LoginRequiredMixin, generic.ListView):
 
 class GenreListView(generic.ListView):
     model = Genre
-    paginate_by = 10
+    paginate_by = 30
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Genre.objects.filter(name__icontains=query)
+        else:
+            return Genre.objects.all()
 
 
 class GenreDetailView(generic.DetailView):

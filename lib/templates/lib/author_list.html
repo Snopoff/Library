@@ -4,6 +4,11 @@
 
 <h1>Список авторов</h1>
 
+<form method="GET" action="" id="searchform">
+    <input class="searchfield" id="searchbox" name="q" type="text" value="{{ request.GET.q }}"
+        placeholder="Search..." />
+</form>
+
 {% if author_list %}
 <ul>
 
